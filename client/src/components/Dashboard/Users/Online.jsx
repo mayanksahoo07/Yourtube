@@ -1,0 +1,92 @@
+import React from 'react'
+import {Box,Center, Spinner,useColorMode} from '@chakra-ui/react'
+import { getUsers } from '../../../services/usersService';
+import FollowerComponent from '../Followers/FollowerComponent';
+import { useMoralis } from 'react-moralis';
+
+
+function Online() {
+
+    document.title = "Online Users"
+    const {Moralis} = useMoralis();
+    const account = Moralis.User.current().get("ethAddress")
+    const user =account.toLowerCase()
+    const [verified, setVerified] = React.useState([])
+    const [isLoading,setIsLoading] = React.useState(true)
+    const {colorMode} = useColorMode()
+
+
+    const getVerifiedUsers = async() => {
+        try{
+
+          const users  =await getUsers()
+          users.data.filter(e => e.userId !== user).map((users) => {
+            var isFollowing = false;
+            if(users.followers.includes(user)){
+                isFollowing = true;
+            }
+            
+            var userdata = {
+                userId: users.userId,
+                followers : users.followers,
+                isOnline : users.isOnline,
+                ProfileAvatar : users.ProfileAvatar,
+                username : users.username,
+                isVerified : users.isVerified,
+                follow : isFollowing
+            }
+            if(userdata.isOnline) {
+              setVerified(verified => [...verified, userdata])
+            }
+        })
+      
+        }catch{}
+        
+        setIsLoading(false)
+      }
+      
+      
+      React.useState(() => {
+        getVerifiedUsers()
+      },[])
+
+  return (
+    <>
+    <Box h="88%" maxHeight="88%" overflowY="auto"> 
+
+           {isLoading ? <Center w="100%" h="70vh"><Spinner 
+                                    thickness='4px'
+                                    color='#3EA6FF'
+                                    size='xl'
+                                    ariaLabel='loading'
+                                    speed='0.65s'
+                                    emptyColor='grey'
+                                /></Center> :
+                                <Box pt={4} d="grid" w="100%" gridTemplateColumns="1fr 1fr" rowGap={6} mr={3} columnGap={4}>
+                  {verified?.map(({userId,username,ProfileAvatar,followers,isOnline,isVerified,follow}) => (
+                      <>
+                      {isOnline && <Box width="100%">
+                        
+                         <FollowerComponent mode={colorMode} isVerified={isVerified} isOnline={isOnline} userId={userId} username={username} avatar={ProfileAvatar} followers={followers} follow={follow}  />
+                        
+                       
+                        
+
+                                    
+                      </Box>}
+                      </>
+                
+                    
+                    ))}
+                    </Box>
+                }
+                    
+                    
+
+    </Box>
+
+    </>
+  )
+}
+
+export default Online
