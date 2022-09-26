@@ -175,7 +175,7 @@ import {Box,Text,Button,Center , Image} from '@chakra-ui/react';
                   await Moralis.switchNetwork("0x13881").catch(async (e) => {
                     if(e.code === 4902) {
                     const chainId = 80001;
-                    const chainName = "";
+                    const chainName = "Mumbai Testnet";
                     const currencyName = "MATIC";
                     const currencySymbol = "MATIC";
                     const rpcUrl = "https://rpc-mumbai.maticvigil.com";
