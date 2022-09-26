@@ -1,8 +1,5 @@
 # Yourtube
 
-
-![Group 2](image??)
-
 ## Project Description
 
 Yourtube is a decentralized live & video streaming platform in the Metaverse. <br />
@@ -11,11 +8,9 @@ It allows users to create or watch live streams in a Mobile App, Website Platfor
 We are building this platform to solve many problems in the video sharing and live streaming sectors such as censorship, data collection and targeted advertisement. All of the data and media files uploaded in our platform are stored in IPFS network.
 
 
-website : 
+website : https://yourtube-pi.vercel.app/
 
 Demo video : 
-
-Metaverse video trailer : 
 
 
 
