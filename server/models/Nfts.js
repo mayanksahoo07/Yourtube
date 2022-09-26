@@ -16,7 +16,7 @@ const NftSchema = new Schema({
 
     contract: {
         type: String,
-        default : "0xB01fD79B3D39E57FA94B482Cce5AffCe91842195",
+        default : "0x7092fEc8e45547Fe789f7E11626a069c5248A40e",
         required: true
     }, 
 
